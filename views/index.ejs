@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <main>
+        <h1>
+            <%= title %>
+        </h1>
+
+        <p>Volunteer projects stored in the cloud database.</p>
+
+        <h2>Volunteer Projects</h2>
+
+        <% if (projects.length===0) { %>
+            <p>No projects found.</p>
+            <% } else { %>
+
+                <ul>
+                    <% projects.forEach((project)=> { %>
+                        <li>
+                            <h3>
+                                <%= project.name %>
+                            </h3>
+
+                            <a href="/project/<%= project.id %>">
+                                View Project
+                            </a>
+                        </li>
+                        <% }); %>
+                </ul>
+
+                <% } %>
+    </main>
+</body>
+
+</html>
