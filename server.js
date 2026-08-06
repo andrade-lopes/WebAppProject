@@ -60,6 +60,30 @@ app.get("/project/:id", async (req, res) => {
     }
 });
 
+// Display the Create Project form
+app.get("/new", (req, res) => {
+    res.render("new");
+});
+
+// Save a new project
+app.post("/new", async (req, res) => {
+    try {
+
+        await db.collection("projects").add({
+            name: req.body.name,
+            description: req.body.description,
+            location: req.body.location,
+            createdAt: new Date()
+        });
+
+        res.redirect("/");
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Unable to create project");
+    }
+});
+
 // Start the server
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
