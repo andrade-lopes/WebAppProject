@@ -84,6 +84,66 @@ app.post("/new", async (req, res) => {
     }
 });
 
+// Display the Edit Project form
+app.get("/edit/:id", async (req, res) => {
+    try {
+        const projectRef = db.collection("projects").doc(req.params.id);
+        const projectSnapshot = await projectRef.get();
+
+        if (!projectSnapshot.exists) {
+            return res.status(404).send("Project not found");
+        }
+
+        const project = {
+            id: projectSnapshot.id,
+            ...projectSnapshot.data()
+        };
+
+        res.render("edit", {
+            project: project
+        });
+
+    } catch (error) {
+        console.error("Error loading project for editing:", error);
+        res.status(500).send("Unable to load project");
+    }
+});
+
+// Update an existing project
+app.post("/edit/:id", async (req, res) => {
+    try {
+        const projectRef = db.collection("projects").doc(req.params.id);
+
+        await projectRef.update({
+            name: req.body.name,
+            description: req.body.description,
+            location: req.body.location,
+            updatedAt: new Date()
+        });
+
+        res.redirect(`/project/${req.params.id}`);
+
+    } catch (error) {
+        console.error("Error updating project:", error);
+        res.status(500).send("Unable to update project");
+    }
+});
+
+// Delete an existing project
+app.post("/delete/:id", async (req, res) => {
+    try {
+        const projectRef = db.collection("projects").doc(req.params.id);
+
+        await projectRef.delete();
+
+        res.redirect("/");
+
+    } catch (error) {
+        console.error("Error deleting project:", error);
+        res.status(500).send("Unable to delete project");
+    }
+});
+
 // Start the server
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);

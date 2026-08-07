@@ -27,6 +27,16 @@
             <%= project.location %>
         </p>
 
+        <a href="/edit/<%= project.id %>">Edit Project</a>
+        <br><br>
+
+        <br><br>
+
+        <form action="/delete/<%= project.id %>" method="POST"
+            onsubmit="return confirm('Are you sure you want to delete this project?');">
+            <button type="submit">Delete Project</button>
+        </form>
+
         <a href="/">Back to Home</a>
     </main>
 </body>

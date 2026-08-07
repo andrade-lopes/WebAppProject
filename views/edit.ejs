@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Project</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <main>
+        <h1>Edit Project</h1>
+
+        <form action="/edit/<%= project.id %>" method="POST">
+
+            <label for="name">Project Name</label><br>
+            <input type="text" id="name" name="name" value="<%= project.name || '' %>" required><br><br>
+
+            <label for="description">Description</label><br>
+            <textarea id="description" name="description" rows="4"
+                cols="40"><%= project.description || '' %></textarea><br><br>
+
+            <label for="location">Location</label><br>
+            <input type="text" id="location" name="location" value="<%= project.location || '' %>"><br><br>
+
+            <button type="submit">Save Changes</button>
+
+        </form>
+
+        <br>
+
+        <a href="/project/<%= project.id %>">Cancel</a>
+
+    </main>
+</body>
+
+</html>
