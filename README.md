@@ -121,7 +121,9 @@ Open the address in a web browser to use the application.
 # Testing
 
 The Firebase connection can be tested using:
+```bash
 node test-firebase.js
+```
 
 The test retrieves the projects stored in the Firestore projects collection and displays their information in the terminal.
 
